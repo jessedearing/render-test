@@ -1,9 +1,14 @@
+use std::env;
+
 use axum::{Router, routing::get};
 
 #[tokio::main]
 async fn main() {
     let app = Router::new().route("/", get(root));
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    let port = env::var("PORT").unwrap_or("3000".into());
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port))
+        .await
+        .unwrap();
     axum::serve(listener, app).await.unwrap();
 }
 

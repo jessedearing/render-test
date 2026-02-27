@@ -1,0 +1,16 @@
+# Exported from Render on 2026-02-27T00:09:34Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: render-test
+      runtime: rust
+      repo: https://github.com/jessedearing/render-test
+      plan: free
+      region: oregon
+      buildCommand: cargo build --release
+      startCommand: cargo run --release
+      autoDeployTrigger: commit
